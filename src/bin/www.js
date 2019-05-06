@@ -10,7 +10,8 @@ const connectionUrl = process.env.NODE_ENV == 'test' ? process.env.DB_URL_TEST :
 
 mongoose.connect(connectionUrl, {
   useNewUrlParser: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: true,
 }, () => {
   console.log('Database Connected');
 });
