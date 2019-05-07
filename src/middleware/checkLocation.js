@@ -10,8 +10,7 @@ import Location from '../models/location';
  */
 const checkLocationExist = async (req, res, next) => {
   const { name } = req.body;
-
-  const location = await Location.findOne({ [name] : name })
+  const location = await Location.findOne({ 'name' : name.toLowerCase() });
 
   return location
   ? res.status(401).json({error: 'location is already existing'})
