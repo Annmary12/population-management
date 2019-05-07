@@ -1,6 +1,19 @@
 import Location from '../models/location';
 
+
+/**
+ * @description LocationController
+ * @class LocationController
+ */
 class LocationController {
+  /**
+   * @description creates new location
+   *
+   * @param {Object} req request object
+   * @param {Object} res response object
+   *
+   * @returns {json} status code, message and newly created location
+   */
   static async create(req, res) {
     try {
       const { name, totalMale, totalFemale } = req.body;
