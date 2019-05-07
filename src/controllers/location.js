@@ -1,7 +1,6 @@
 import Location from '../models/location';
-import Services from '../services/location';
 
-class Location {
+class LocationController {
   static async create(req, res) {
     try {
       const { name, totalMale, totalFemale } = req.body;
@@ -9,19 +8,21 @@ class Location {
         name,
         totalMale,
         totalFemale,
-        totalPopulation: totalFemale + totalMale
+        totalPopulation: Number(totalFemale) + Number(totalMale)
       };
-      console.log(options);
-      const data = Location.create(options);
+      const data = await Location.create(options);
 
       return res.status(201).json({
         message: 'successfully Created',
         data
       })
     } catch (error) {
-      console.log(error.message)
+      return res.status(500).json({
+        message: 'Error occured',
+        error
+      })
     }
   }
 }
 
-export default Location;
+export default LocationController;

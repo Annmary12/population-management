@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
-import { stringify } from 'querystring';
 
 const locationSchema = new Schema({
   name: {
@@ -27,4 +26,6 @@ const locationSchema = new Schema({
 
 locationSchema.plugin(mongoosePaginate);
 
-const
+const Location = mongoose.model('location', locationSchema);
+
+export default Location;
