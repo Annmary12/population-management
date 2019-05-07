@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import LocationController from '../controllers/location';
+import Validation from '../middleware/validateInput';
 
 const { create } = LocationController;
+const { inputValidation } = Validation;
 const route = Router();
 
 route.get('/', (req, res) => {
@@ -10,6 +12,6 @@ route.get('/', (req, res) => {
   })
 });
 
-route.post('/', create);
+route.post('/', inputValidation, create);
 
 export default route;
