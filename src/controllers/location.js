@@ -37,6 +37,14 @@ class LocationController {
     }
   }
 
+   /**
+   * @description gets all location
+   *
+   * @param {Object} req request object
+   * @param {Object} res response object
+   *
+   * @returns {json} status code, message or data
+   */
   static async get(req, res) {
     try {
       const options = {
