@@ -3,7 +3,7 @@ import LocationController from '../controllers/location';
 import Validation from '../middleware/validateInput';
 import checkLocationExist from '../middleware/checkLocation';
 
-const { create, get, update } = LocationController;
+const { create, get, update, deleteLocation } = LocationController;
 const { inputValidation, updateValidation } = Validation;
 const route = Router();
 
@@ -16,5 +16,6 @@ const route = Router();
 route.post('/', inputValidation, checkLocationExist, create);
 route.get('/', get);
 route.put('/:locationId', updateValidation, update);
+route.delete('/:locationId', deleteLocation);
 
 export default route;

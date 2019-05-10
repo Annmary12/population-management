@@ -31,7 +31,7 @@ class LocationController {
       })
     } catch (error) {
       return res.status(500).json({
-        message: 'Error occured',
+        message: 'An error occured',
         error
       })
     }
@@ -63,7 +63,7 @@ class LocationController {
 
     } catch (error) {
       return res.status(500).json({
-        message: 'Error occured',
+        message: 'An error occured',
         error
       })
     }
@@ -92,7 +92,28 @@ class LocationController {
       })
     } catch (error) {
       return res.status(500).json({
-        message: 'Error occured',
+        message: 'An error occured',
+        error
+      });
+    }
+  }
+
+  static async deleteLocation(req, res) {
+    try {
+      const { locationId } = req.params;
+      const location = await Location.findById(locationId);
+
+      if (!location)
+        return res.status(400).json({ message: 'Location not found!' });
+
+      await Location.findByIdAndRemove(location._id);
+
+      return res.status(200).json({
+        message: 'Location deleted succeffully',
+      })
+    } catch (error) {
+      return res.status(500).json({
+        message: 'An error occured',
         error
       });
     }
