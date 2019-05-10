@@ -7,12 +7,6 @@ const { create, getAll, get, update, deleteLocation } = LocationController;
 const { inputValidation, updateValidation } = Validation;
 const route = Router();
 
-// route.get('/', (req, res) => {
-//   res.status(200).json({
-//     message: 'Welcome to population management system API!!!'
-//   })
-// });
-
 route.post('/', inputValidation, checkLocationExist, create);
 route.get('/', getAll);
 route.get('/:locationId', get);

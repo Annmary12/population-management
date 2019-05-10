@@ -11,6 +11,12 @@ app.use(BodyParser.urlencoded({ extented: true }));
 
 app.use(expressValidator());
 
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Welcome to population management system API!!!'
+  })
+});
+
 app.use('/api/v1/location', routes);
 
 app.use('*', (req, res, next) => {

@@ -37,6 +37,33 @@ class LocationController {
     }
   }
 
+  /**
+   * @description get one location
+   *
+   * @param {Object} req request object
+   * @param {Object} res response object
+   *
+   * @returns {json} status code, message and data
+   */
+  static async get(req, res) {
+    try {
+      const { locationId } = req.params;
+      const location = await Location.findById(locationId);
+
+      if (!location)
+        return res.status(400).json({ message: 'Location not found!' });
+
+      return res.status(200).json({
+        location
+      })
+    } catch (error) {
+      return res.status(500).json({
+        message: 'An error occured',
+        error
+      })
+    }
+  }
+
    /**
    * @description gets all location
    *
@@ -107,7 +134,7 @@ class LocationController {
   }
 
   /**
-   * @description deletes a lication
+   * @description deletes a location
    *
    * @param {Object} req request object
    * @param {Object} res response object
