@@ -86,6 +86,17 @@ describe('controller: Location', () => {
       })
     })
 
+  });
+
+  describe('getAll() function', () => {
+    it('should get all locations', (done) => {
+      request.get(`${BASE_URL}/location/`)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('List of all locations');
+        done();
+      })
+    })
   })
 
   after((done) => {
