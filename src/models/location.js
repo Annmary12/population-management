@@ -35,19 +35,19 @@ locationSchema.virtual('totalPopulation').get(function () {
   return this.totalFemale + this.totalMale;
 })
 
-locationSchema.methods.getTotalMale = function () {
-  const subLocations = this.subLocations;
+// locationSchema.methods.getTotalMale = function () {
+//   const subLocations = this.subLocations;
 
-  if (subLocations.length > 0) {
-    const totalMale = subLocations.reduce((total, subLocation) => {
-      return subLocation.totalMale + total;
-    }, 0);
+//   if (subLocations.length > 0) {
+//     const totalMale = subLocations.reduce((total, subLocation) => {
+//       return subLocation.totalMale + total;
+//     }, 0);
 
-    return totalMale;
-  }
+//     return totalMale;
+//   }
 
-  return this.totalMale;
-}
+//   return this.totalMale;
+// }
 
 const Location = mongoose.model('location', locationSchema);
 

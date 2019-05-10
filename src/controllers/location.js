@@ -118,17 +118,12 @@ class LocationController {
     try {
       const { locationId } = req.params;
       const { name, totalMale, totalFemale } = req.body;
-      const location = await Location.findById(locationId);
-
-      if (!location)
-        return res.status(400).json({ message: 'Location not found!' });
-
       const options = {
         name: name.trim(),
         totalMale,
         totalFemale,
       }
-      const updatedLocation = await Location.findOneAndUpdate({ _id: location._id }, options, { new: true });
+      const updatedLocation = await Location.findOneAndUpdate({ _id: locationId }, options, { new: true });
 
       return res.status(200).json({
         message: 'Location updated succeffully',
@@ -155,9 +150,6 @@ class LocationController {
       const { locationId } = req.params;
       const location = await Location.findById(locationId);
 
-      if (!location)
-        return res.status(400).json({ message: 'Location not found!' });
-
       await Location.findByIdAndRemove(location._id);
 
       return res.status(200).json({
@@ -165,8 +157,8 @@ class LocationController {
       })
     } catch (error) {
       return res.status(500).json({
-        message: 'An error occured',
-        error
+        message: 'Location not found!',
+        error: error
       });
     }
   }

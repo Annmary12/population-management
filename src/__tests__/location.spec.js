@@ -128,6 +128,27 @@ describe('controller: Location', () => {
     })
   })
 
+  describe('delete() function', () => {
+    it('should return an error if the location does not exist', (done) => {
+      request.delete(`${BASE_URL}/location/2839200782`)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(500);
+        expect(res.body.message).to.equal('Location not found!');
+        done();
+      })
+    })
+
+    it('should delete a location', (done) => {
+      request.delete(`${BASE_URL}/location/${newCreactedLocation.data._id}`)
+      .end((err, res) => {
+        console.log(res.body);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Location deleted succeffully');
+        done();
+      })
+    })
+  })
+
   after((done) => {
     mongoose.connection.dropDatabase(() => {
       mongoose.connection.close(done);
