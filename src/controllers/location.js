@@ -17,18 +17,20 @@ class LocationController {
   static async create(req, res) {
     try {
       const { name, totalMale, totalFemale, parentLocationId } = req.body;
-      if (parentLocationId) {
-        const parentLocation = await Location.findById(parentLocationId);
-
-        if(!parentLocation)
-         return res.status(400).json({ message: 'Location not found!' });
-      }
-      const options = {
+      let options = {
         name: name.trim(),
         totalMale,
         totalFemale,
-        parentLocation: parentLocationId ? parentLocationId : ''
       };
+
+      if (parentLocationId) {
+        const parentLocation = await Location.findById(parentLocationId);
+        options = { ...options, parentLocation: parentLocationId };
+
+        if (!parentLocation)
+         return res.status(400).json({ message: 'Location not found!' });
+      }
+
       const data = await Location.create(options);
       if (parentLocationId) await Location.updateOne(
         { _id: parentLocationId },
@@ -37,7 +39,7 @@ class LocationController {
       );
 
       return res.status(201).json({
-        message: 'successfully Created',
+        message: 'Successfully Created',
         data
       })
     } catch (error) {
