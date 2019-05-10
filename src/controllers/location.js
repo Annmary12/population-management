@@ -16,14 +16,25 @@ class LocationController {
    */
   static async create(req, res) {
     try {
-      const { name, totalMale, totalFemale } = req.body;
+      const { name, totalMale, totalFemale, parentLocationId } = req.body;
+      if (parentLocationId) {
+        const parentLocation = await Location.findById(parentLocationId);
+
+        if(!parentLocation)
+         return res.status(400).json({ message: 'Location not found!' });
+      }
       const options = {
         name: name.trim(),
         totalMale,
         totalFemale,
-        totalPopulation: Number(totalFemale) + Number(totalMale)
+        parentLocation: parentLocationId ? parentLocationId : ''
       };
       const data = await Location.create(options);
+      if (parentLocationId) await Location.updateOne(
+        { _id: parentLocationId },
+        { $push: { subLocations: data._id }},
+        { new: true , upsert: true}
+      );
 
       return res.status(201).json({
         message: 'successfully Created',
@@ -32,7 +43,7 @@ class LocationController {
     } catch (error) {
       return res.status(500).json({
         message: 'An error occured',
-        error
+        error: error.stack
       })
     }
   }
@@ -48,7 +59,7 @@ class LocationController {
   static async get(req, res) {
     try {
       const { locationId } = req.params;
-      const location = await Location.findById(locationId);
+      const location = await Location.findById(locationId).populate('subLocations');
 
       if (!location)
         return res.status(400).json({ message: 'Location not found!' });
@@ -76,7 +87,8 @@ class LocationController {
     try {
       const options = {
         page: req.query.page ? Number(req.query.page) : 1,
-        limit: 5
+        limit: 5,
+        populate: 'subLocations'
       };
       const data = await Location.paginate({}, options);
 
