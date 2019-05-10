@@ -63,16 +63,12 @@ class LocationController {
       const { locationId } = req.params;
       const location = await Location.findById(locationId).populate('subLocations');
 
-      if (!location)
-        return res.status(400).json({ message: 'Location not found!' });
-
       return res.status(200).json({
         location
       })
     } catch (error) {
       return res.status(500).json({
-        message: 'An error occured',
-        error
+        message: 'Location not found!'
       })
     }
   }
