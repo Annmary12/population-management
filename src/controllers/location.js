@@ -45,7 +45,7 @@ class LocationController {
    *
    * @returns {json} status code, message or data
    */
-  static async get(req, res) {
+  static async getAll(req, res) {
     try {
       const options = {
         page: req.query.page ? Number(req.query.page) : 1,
@@ -69,6 +69,14 @@ class LocationController {
     }
   }
 
+  /**
+   * @description updates a location
+   *
+   * @param {Object} req request object
+   * @param {Object} res response object
+   *
+   * @returns {json} status code, message or data
+   */
   static async update(req, res) {
     try {
       const { locationId } = req.params;
@@ -98,6 +106,14 @@ class LocationController {
     }
   }
 
+  /**
+   * @description deletes a lication
+   *
+   * @param {Object} req request object
+   * @param {Object} res response object
+   *
+   * @returns {json} status code, message or data
+   */
   static async deleteLocation(req, res) {
     try {
       const { locationId } = req.params;
