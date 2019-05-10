@@ -85,7 +85,7 @@ To get the app up and running (and really see if it worked), run:
 <table>
 <tr><th>HTTP VERB</th><th>ENDPOINTS</th><th>DESCRIPTION</th></tr>
 <tr><td>POST</td><td>/api/v1/location/</td><td>Creates a location</td></tr>
-<tr><td>POST</td><td>/api/v1/location/</td><td>Gets all location</td></tr>
+<tr><td>GET</td><td>/api/v1/location/</td><td>Gets all location</td></tr>
 <tr><td>GET</td><td>/api/v1/location/:locationId</td><td>Get one location</td></tr>
 <tr><td>PUT</td><td>/api/v1/location/:locationId</td><td>Updates a location</td></tr>
 <tr><td>DELETE</td><td>/api/v1/location/:locationI</td><td>Deletes a location</td></tr>
