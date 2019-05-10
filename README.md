@@ -78,7 +78,7 @@ To get the app up and running (and really see if it worked), run:
 
 ## Link to the documentation
 
-[Docs](https://documenter.getpostman.com/view/3526442/S1Ltzorn#475803ff-9fc9-459d-96a9-37b4262f38cf)
+[Docs](https://documenter.getpostman.com/view/3526442/S1Lx18e6#d2851e3b-5145-431f-a34f-af72e104fe2d)
 
 ## API Endpoints
 
