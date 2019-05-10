@@ -7,7 +7,7 @@ const { expect } = chai;
 const request = supertest(server);
 const BASE_URL = '/api/v1';
 const location = {
-  name: 'Abujaa',
+  name: 'Abuja',
   totalMale: 10,
   totalFemale: 40
 };
@@ -94,6 +94,35 @@ describe('controller: Location', () => {
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
         expect(res.body.message).to.equal('List of all locations');
+        done();
+      })
+    })
+  })
+
+  describe('update() function', () => {
+    it('should update a locations', (done) => {
+      request.put(`${BASE_URL}/location/${newCreactedLocation.data._id}`)
+      .send({
+        ...location,
+        name: 'Utako',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Location updated succeffully');
+        expect(res.body.updatedLocation.name).to.equal('utako');
+        done();
+      })
+    })
+
+    it('should return error for invaled location', (done) => {
+      request.put(`${BASE_URL}/location/2839200782`)
+      .send({
+        ...location,
+        name: 'Utako',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.errors[0]).to.equal('Location ID is not a valid MongoID');
         done();
       })
     })

@@ -125,9 +125,8 @@ class LocationController {
 
       const options = {
         name: name.trim(),
-        totalMale: totalMale,
-        totalFemail: totalFemale,
-        totalPopulation: Number(totalFemale) + Number(totalMale)
+        totalMale,
+        totalFemale,
       }
       const updatedLocation = await Location.findOneAndUpdate({ _id: location._id }, options, { new: true });
 
