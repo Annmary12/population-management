@@ -18,7 +18,7 @@ class LocationController {
     try {
       const { name, totalMale, totalFemale } = req.body;
       const options = {
-        name,
+        name: name.trim(),
         totalMale,
         totalFemale,
         totalPopulation: Number(totalFemale) + Number(totalMale)
@@ -66,6 +66,35 @@ class LocationController {
         message: 'Error occured',
         error
       })
+    }
+  }
+
+  static async update(req, res) {
+    try {
+      const { locationId } = req.params;
+      const { name, totalMale, totalFemale } = req.body;
+      const location = await Location.findById(locationId);
+
+      if (!location)
+        return res.status(400).json({ message: 'Location not found!' });
+
+      const options = {
+        name: name.trim(),
+        totalMale: totalMale,
+        totalFemail: totalFemale,
+        totalPopulation: Number(totalFemale) + Number(totalMale)
+      }
+      const updatedLocation = await Location.findOneAndUpdate({ _id: location._id }, options, { new: true });
+
+      return res.status(200).json({
+        message: 'Location updated succeffully',
+        updatedLocation
+      })
+    } catch (error) {
+      return res.status(500).json({
+        message: 'Error occured',
+        error
+      });
     }
   }
 }
